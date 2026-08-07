@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "dir": "ltr",
+    "lang": "en",
+    "name": "English"
+  },
+  "nav": {
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "kicker": "Akand Smart Solutions",
+    "headline_words": [
+      "Digital Solutions",
+      "Simple. Smart. Secure."
+    ],
+    "sub_1": "Akand Smart Solutions provides modern Website, Web Application, Mobile App, and Custom Software development services for your business, organization, or startup. We turn your ideas into effective, real digital products through fast, secure, and scalable solutions.",
+    "sub_2": "We build custom software for schools, colleges, madrasas, shops, messes, hotels, hospitals, pharmacies, offices, NGOs, and any organization. We also offer website and software upgrades, redesign, performance optimization, and long-term technical support.",
+    "cta_products": "View Products",
+    "cta_whatsapp": "Message on WhatsApp"
+  },
+  "products": {
+    "title": "Our Products",
+    "sub": "Built around the real problems institutions face",
+    "items": [
+      {
+        "id": "shop-management",
+        "name": "Shop Management System",
+        "tagline": "Sales, purchases, stock and accounts — in one place",
+        "usps": [
+          "Fully operable from mobile",
+          "Role-based access control",
+          "Full 3-language support"
+        ]
+      },
+      {
+        "id": "madrasa-management",
+        "name": "Madrasa Management System",
+        "tagline": "From admission to results — complete management",
+        "usps": [
+          "Automatic Hijri-year serial IDs",
+          "Fee, salary and donation tracking",
+          "Fully customizable"
+        ]
+      },
+      {
+        "id": "school-management",
+        "name": "School Management System",
+        "tagline": "Teachers, students and parents on one platform",
+        "usps": [
+          "Automated attendance and results",
+          "SMS notifications",
+          "Simple, hassle-free interface"
+        ]
+      },
+      {
+        "id": "mess-management",
+        "name": "Mess Management System",
+        "tagline": "Everyday mess accounting made simple",
+        "usps": [
+          "Core features work without internet",
+          "Fast PIN login",
+          "Automatic expense and meal tracking"
+        ]
+      }
+    ],
+    "cta": "See details",
+    "trial": "15-30 days full premium access, free"
+  },
+  "about": {
+    "title": "Md. Rahmatullah Akanda",
+    "titles": "Software Engineer • Web, App & Software Developer • Islamic Scholar",
+    "role": "Islamic Scholar",
+    "body": "The depth of Islamic teaching and modern technology combine in my work to create effective digital solutions for real problems.\n\nI design and develop modern websites, web applications, mobile apps and custom software for individuals, businesses, madrasas, schools, colleges, messes and other organizations. I also provide software upgrades, performance optimization and long-term technical support.\n\nAt the same time, I work on online Quran teaching, masala-based Islamic content, research-driven Islamic education and technology-enabled learning services.\n\nMy goal is one — to make technology simple, smart and secure for people’s benefit."
+  },
+  "why": {
+    "title": "Why Akand Smart Solutions?",
+    "items": [
+      {
+        "title": "Premium, modern design"
+      },
+      {
+        "title": "Fast, secure and scalable technology"
+      },
+      {
+        "title": "Responsive experience on every device"
+      },
+      {
+        "title": "Custom website, app and software"
+      },
+      {
+        "title": "Bengali • English • Arabic • Urdu support"
+      },
+      {
+        "title": "Cloud-based secure data systems"
+      },
+      {
+        "title": "Regular updates and technical support"
+      }
+    ],
+    "trialTitle": "30-day full free trial",
+    "trialText": "Try our software without any payment and customize it to your needs.",
+    "closing": "Start using today — Simple. Smart. Secure."
+  },
+  "contact": {
+    "title": "Get in touch",
+    "sub": "Tell us what you need, we'll respond quickly",
+    "name": "Your name",
+    "whatsapp": "WhatsApp number",
+    "need": "What do you need?",
+    "submit": "Send via WhatsApp"
+  },
+  "footer": {
+    "tagline": "Akand Smart Solutions - Simple. Smart. Secure.",
+    "rights": "All rights reserved"
+  }
+}

@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="bn" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akand Smart Solutions — Simple. Smart. Secure.</title>
+    <meta
+      name="description"
+      content="Akand Smart Solutions — মাদ্রাসা, স্কুল, দোকান ও মেস পরিচালনার জন্য আধুনিক সফটওয়্যার। বাংলা, আরবি, উর্দু ও ইংরেজিতে উপলব্ধ।"
+    />
+
+    <!-- Fonts: Latin/Bengali display + body, Arabic (single face), Urdu Nastaliq -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Work+Sans:wght@400;500;600&family=Tiro+Bangla&family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="assets/logo.png" />
+
+    <!-- Tailwind (prototype via CDN — swap for a purged build before final production launch) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                PRIMARY: "#106B5F",
+                DARK: "#0A4A42",
+                ACCENT: "#12B8A0",
+                GOLD: "#D4A64A",
+                LIGHT: "#E2F2EE",
+                BG: "#F4E4C4",
+                SURFACE: "#FFFFFF",
+                TEXT: "#1A1D1A",
+                BORDER: "#EAE8E1",
+              },
+            },
+            fontFamily: {
+              serif: ["Fraunces", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+      html,
+      body {
+        background-color: #fef3dd;
+        background-image:
+          linear-gradient(rgba(244, 228, 196, 0.85), rgba(244, 228, 196, 0.85)),
+          url("assets/pattern.png");
+        background-repeat: repeat;
+        background-size:
+          auto,
+          220px 220px;
+      }
+      body.font-bn {
+        font-family: "Tiro Bangla", serif;
+      }
+      body.font-ar {
+        font-family: "Amiri", serif;
+      }
+      body.font-ur {
+        font-family: "Noto Nastaliq Urdu", serif;
+        line-height: 2;
+      }
+
+      p,
+      li {
+        text-align: justify;
+        text-justify: inter-word;
+      }
+
+      .font-bn #hero-headline,
+      .font-bn .display {
+        font-family: "Tiro Bangla", serif;
+      }
+      .font-en #hero-headline,
+      .font-en .display {
+        font-family: "Fraunces", serif;
+      }
+      .font-ar #hero-headline,
+      .font-ar .display {
+        font-family: "Amiri", serif;
+      }
+      .font-ur #hero-headline,
+      .font-ur .display {
+        font-family: "Noto Nastaliq Urdu", serif;
+      }
+
+      [dir="rtl"] .rtl-flip {
+        display: inline-block;
+        transform: scaleX(-1);
+      }
+      [dir="rtl"] #mobile-menu,
+      [dir="rtl"] nav {
+        text-align: right;
+      }
+
+      #mobile-menu a {
+        color: #1a1d1a;
+      }
+      #mobile-menu a:hover {
+        color: #106b5f;
+      }
+      #mobile-menu .nav-link::after {
+        display: none;
+      }
+      #mobile-menu .nav-link.nav-active {
+        color: #106b5f;
+        font-weight: 700;
+        background: rgba(16, 92, 83, 0.08);
+      }
+      #mobile-menu button[data-lang-option].bg-brand-PRIMARY {
+        box-shadow: inset 0 0 0 1px rgba(16, 92, 83, 0.12);
+      }
+
+      nav a.nav-active {
+        color: #106b5f;
+        font-weight: 600;
+      }
+
+      .header-bar {
+        position: sticky;
+        transition: box-shadow 0.3s ease;
+      }
+      .header-bar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #106b5f 30%,
+          #d4a64a 50%,
+          #106b5f 70%,
+          transparent
+        );
+      }
+      .header-bar.scrolled {
+        box-shadow: 0 4px 24px rgba(16, 107, 95, 0.1);
+      }
+      .header-inner {
+        transition: height 0.3s ease;
+      }
+      .header-bar.scrolled .header-inner {
+        height: 56px;
+      }
+
+      .nav-link {
+        position: relative;
+        padding-bottom: 3px;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, #106b5f, #d4a64a);
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after,
+      .nav-link.nav-active::after {
+        width: 100%;
+      }
+
+      @keyframes whatsapp-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(16, 107, 95, 0.35);
+        }
+        50% {
+          transform: scale(1.035);
+          box-shadow: 0 0 0 12px rgba(16, 107, 95, 0);
+        }
+      }
+      .whatsapp-btn {
+        animation: whatsapp-pulse 2.4s ease-in-out infinite;
+      }
+
+      .view-products-btn {
+        position: relative;
+        z-index: 0;
+      }
+      .view-products-btn::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 9999px;
+        padding: 2px;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0%,
+          #d4a64a 15%,
+          transparent 35%
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: rotate-border 3.5s linear infinite;
+        z-index: -1;
+      }
+      @keyframes rotate-border {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Ambient gradient blobs for a livelier background */
+      .bg-blobs {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(70px);
+        opacity: 0.35;
+      }
+      .blob-1 {
+        width: 480px;
+        height: 480px;
+        top: -120px;
+        right: -100px;
+        background: radial-gradient(circle, #12b8a0, transparent 70%);
+      }
+      .blob-2 {
+        width: 420px;
+        height: 420px;
+        top: 30%;
+        left: -160px;
+        background: radial-gradient(circle, #106b5f, transparent 70%);
+      }
+      .blob-3 {
+        width: 380px;
+        height: 380px;
+        bottom: -140px;
+        right: 10%;
+        background: radial-gradient(circle, #d4a64a, transparent 70%);
+      }
+
+      /* Logo styles */
+      .site-logo {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 8px;
+        display: inline-block;
+      }
+      @media (min-width: 768px) {
+        .site-logo {
+          width: 48px;
+          height: 48px;
+          border-radius: 10px;
+        }
+      }
+      .brand-title {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      /* Footer styles */
+      .site-footer {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        padding: 0.75rem;
+      }
+      .footer-link {
+        color: var(--tb, #1a1d1a);
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition:
+          background 0.18s ease,
+          color 0.18s ease;
+      }
+      .footer-link:hover {
+        background: rgba(16, 107, 95, 0.06);
+        color: #106b5f;
+      }
+      .footer-cta {
+        box-shadow: 0 8px 24px rgba(16, 107, 95, 0.08);
+      }
+      .footer-logo-panel {
+        min-height: 180px;
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.88)
+        );
+      }
+      .footer-logo-img {
+        width: 100%;
+        max-width: 180px;
+        max-height: 160px;
+        object-fit: contain;
+      }
+
+      /* Glassmorphism card */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.78);
+        background-image: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(250, 250, 250, 0.78)
+        );
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border: 1px solid rgba(255, 255, 255, 0.86);
+        box-shadow: 0 24px 60px rgba(16, 107, 95, 0.12);
+        transition:
+          transform 0.3s ease,
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 28px 72px rgba(16, 107, 95, 0.16);
+        transform: translateY(-2px);
+      }
+
+      .hero-fullscreen {
+        min-height: calc(100vh - 5rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem; /* more breathing room between elements */
+      }
+      /* Brand name — the primary (large) hero element */
+      .brand-name {
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        font-size: clamp(1.75rem, 5vw, 3.5rem);
+        letter-spacing: -0.01em;
+        color: #106b5f;
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      .hero-info-card {
+        max-width: 56rem;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 1.25rem;
+        padding: 1.5rem 1.75rem;
+        display: grid;
+        gap: 1rem;
+      }
+      .hero-info-text {
+        text-align: start;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: rgba(26, 29, 26, 0.75);
+      }
+      @media (min-width: 768px) {
+        .hero-info-card {
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+        .hero-info-text {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* Tagline — the secondary hero element (small, fluid) */
+      .hero-title {
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        font-size: clamp(1.1rem, 3.2vw, 2rem);
+        line-height: 1.25;
+        margin-top: 0.25rem;
+        padding-bottom: 0.1rem;
+        white-space: nowrap;
+      }
+      /* Make hero paragraphs readable — centered but not full container width */
+      .hero-fullscreen p {
+        max-width: 46rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Page transitions */
+      body {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      body.page-loaded {
+        opacity: 1;
+      }
+      body.page-leaving {
+        opacity: 0;
+      }
+
+      /* Cursor-follow glow */
+      .glass-card,
+      .cta-gradient {
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .glass-card::before,
+      .cta-gradient::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: var(--my, 50%);
+        left: var(--mx, 50%);
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(
+          circle,
+          rgba(212, 166, 74, 0.35),
+          transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .glass-card:hover::before,
+      .cta-gradient:hover::before {
+        opacity: 1;
+      }
+
+      /* SVG draw-in */
+      .draw-path {
+        stroke-linecap: round;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+        body {
+          opacity: 1 !important;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header-bar.scrolled .header-inner {
+          height: 60px;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-bn text-brand-TEXT antialiased">
+    <div class="bg-blobs">
+      <div class="blob blob-1" id="blob-1"></div>
+      <div class="blob blob-2" id="blob-2"></div>
+      <div class="blob blob-3" id="blob-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header-bar sticky top-0 z-50 bg-brand-BG/90 backdrop-blur">
+      <div
+        class="header-inner max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center gap-3 shrink-0">
+          <img
+            src="assets/logo.png"
+            alt="Akand Smart Solutions logo"
+            class="site-logo"
+          />
+          <span
+            class="font-bold text-brand-DARK text-base md:text-xl brand-title"
+            >Akand Smart Solutions</span
+          >
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm">
+          <a
+            href="#products"
+            data-i18n="nav.products"
+            class="nav-link hover:text-brand-ACCENT transition-colors"
+          ></a>
+          <a
+            href="#about"
+            data-i18n="nav.about"
+            class="nav-link hover:text-brand-ACCENT transition-colors"
+          ></a>
+          <a
+            href="#contact"
+            data-i18n="nav.contact"
+            class="nav-link hover:text-brand-ACCENT transition-colors"
+          ></a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden sm:flex items-center gap-1 glass-card rounded-full p-1 text-xs"
+          >
+            <button
+              data-lang-option="bn"
+              class="px-2.5 py-1 rounded-full transition-colors text-brand-TEXT"
+            >
+              বাং
+            </button>
+            <button
+              data-lang-option="ar"
+              class="px-2.5 py-1 rounded-full transition-colors text-brand-TEXT"
+            >
+              عر
+            </button>
+            <button
+              data-lang-option="ur"
+              class="px-2.5 py-1 rounded-full transition-colors text-brand-TEXT"
+            >
+              اردو
+            </button>
+            <button
+              data-lang-option="en"
+              class="px-2.5 py-1 rounded-full transition-colors text-brand-TEXT"
+            >
+              EN
+            </button>
+          </div>
+          <button
+            id="nav-toggle"
+            class="md:hidden w-11 h-11 flex items-center justify-center rounded-2xl border border-brand-BORDER bg-brand-SURFACE shadow-sm transition hover:border-brand-ACCENT"
+            aria-expanded="false"
+          >
+            <span class="text-xl">☰</span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden absolute inset-x-4 top-full mt-3 mx-auto w-[calc(100%-2rem)] max-w-md rounded-[32px] border border-brand-BORDER bg-brand-SURFACE/95 backdrop-blur-xl px-4 py-3 shadow-2xl"
+      >
+        <div class="flex items-center justify-between gap-2 text-sm">
+          <a
+            href="#products"
+            data-i18n="nav.products"
+            class="nav-link flex-1 text-center rounded-2xl px-3 py-2 transition-colors duration-200 hover:bg-brand-LIGHT"
+          ></a>
+          <a
+            href="#about"
+            data-i18n="nav.about"
+            class="nav-link flex-1 text-center rounded-2xl px-3 py-2 transition-colors duration-200 hover:bg-brand-LIGHT"
+          ></a>
+          <a
+            href="#contact"
+            data-i18n="nav.contact"
+            class="nav-link flex-1 text-center rounded-2xl px-3 py-2 transition-colors duration-200 hover:bg-brand-LIGHT"
+          ></a>
+        </div>
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
+          <button
+            data-lang-option="bn"
+            class="px-3 py-2 rounded-full border border-brand-BORDER text-xs transition hover:bg-brand-LIGHT"
+          >
+            বাং
+          </button>
+          <button
+            data-lang-option="ar"
+            class="px-3 py-2 rounded-full border border-brand-BORDER text-xs transition hover:bg-brand-LIGHT"
+          >
+            عر
+          </button>
+          <button
+            data-lang-option="ur"
+            class="px-3 py-2 rounded-full border border-brand-BORDER text-xs transition hover:bg-brand-LIGHT"
+          >
+            اردو
+          </button>
+          <button
+            data-lang-option="en"
+            class="px-3 py-2 rounded-full border border-brand-BORDER text-xs transition hover:bg-brand-LIGHT"
+          >
+            EN
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-5 md:px-8 hero-fullscreen">
+      <p data-i18n="hero.kicker" class="brand-name mx-auto mb-2"></p>
+      <h1
+        id="hero-headline"
+        class="display hero-title mx-auto tracking-tight leading-snug mb-8"
+      >
+        সহজ। স্মার্ট। নিরাপদ।
+      </h1>
+      <div class="hero-info-card mx-auto mb-8">
+        <p data-i18n="hero.sub_1" class="hero-info-text"></p>
+        <p data-i18n="hero.sub_2" class="hero-info-text"></p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          href="#products"
+          data-i18n="hero.cta_products"
+          class="view-products-btn cta-gradient px-6 py-3 rounded-full bg-brand-PRIMARY hover:bg-brand-DARK text-white text-sm font-medium shadow-lg shadow-brand-PRIMARY/20 hover:shadow-brand-PRIMARY/30 hover:-translate-y-0.5 transition-all duration-300"
+        ></a>
+        <a
+          href="#contact"
+          data-i18n="hero.cta_whatsapp"
+          class="whatsapp-btn px-6 py-3 rounded-full glass-card text-sm font-medium hover:-translate-y-0.5 transition-all duration-300"
+        ></a>
+      </div>
+
+      <a
+        href="#products"
+        aria-label="Scroll to products"
+        class="mt-10 text-brand-PRIMARY/50 hover:text-brand-PRIMARY transition-colors animate-bounce"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </a>
+    </section>
+
+    <!-- Products -->
+    <section
+      id="products"
+      class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24 border-t border-brand-BORDER"
+      data-reveal
+    >
+      <div class="max-w-2xl mx-auto text-center mb-4">
+        <h2
+          data-i18n="products.title"
+          class="display text-center text-2xl md:text-4xl font-semibold mb-3 mx-auto"
+        ></h2>
+        <p
+          data-i18n="products.sub"
+          class="text-center text-brand-TEXT/70 mx-auto"
+        ></p>
+      </div>
+      <div class="text-center mb-10">
+        <p
+          id="products-trial"
+          class="inline-block text-xs font-semibold text-white bg-brand-PRIMARY px-3 py-1.5 rounded-full"
+        ></p>
+      </div>
+
+      <div id="products-grid" class="grid sm:grid-cols-2 gap-5 md:gap-6"></div>
+    </section>
+
+    <!-- About / Founder -->
+    <section
+      id="about"
+      class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24 border-t border-brand-BORDER"
+      data-reveal
+    >
+      <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-12 items-start">
+        <div
+          class="w-40 h-40 md:w-full md:aspect-square rounded-2xl overflow-hidden border border-brand-BORDER shadow-sm"
+        >
+          <img
+            src="assets/rahmat.webp"
+            alt="Rahmat"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div>
+          <h2
+            data-i18n="about.title"
+            class="display text-2xl md:text-3xl font-semibold mb-2"
+          ></h2>
+          <p
+            data-i18n="about.titles"
+            class="text-brand-ACCENT font-semibold mb-1"
+          ></p>
+          <p data-i18n="about.role" class="text-sm text-brand-TEXT/60 mb-5"></p>
+          <div
+            data-i18n-html="about.body"
+            class="text-brand-TEXT/80 leading-relaxed max-w-2xl"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why us -->
+    <section
+      class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24 border-t border-brand-BORDER"
+      data-reveal
+    >
+      <h2
+        data-i18n="why.title"
+        class="display text-2xl md:text-3xl font-semibold mb-8"
+      ></h2>
+      <div id="why-grid" class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-8"></div>
+
+      <div
+        class="glass-card rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-brand-GOLD/20 flex items-center justify-center text-2xl shrink-0"
+        >
+          🎁
+        </div>
+        <div>
+          <h4
+            data-i18n="why.trialTitle"
+            class="font-semibold text-brand-TEXT mb-1"
+          ></h4>
+          <p data-i18n="why.trialText" class="text-sm text-brand-TEXT/70"></p>
+        </div>
+      </div>
+
+      <p
+        data-i18n="why.closing"
+        class="display text-center text-lg md:text-xl font-semibold text-brand-PRIMARY"
+      ></p>
+    </section>
+
+    <!-- Contact -->
+    <section
+      id="contact"
+      class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24 border-t border-brand-BORDER"
+      data-reveal
+    >
+      <div class="max-w-xl mb-10">
+        <h2
+          data-i18n="contact.title"
+          class="display text-2xl md:text-4xl font-semibold mb-3"
+        ></h2>
+        <p data-i18n="contact.sub" class="text-brand-TEXT/70"></p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <form
+          id="contact-form"
+          class="space-y-4 max-w-md glass-card rounded-2xl p-6"
+        >
+          <input
+            name="name"
+            required
+            data-i18n-placeholder="contact.name"
+            class="w-full px-4 py-3 rounded-xl border border-brand-BORDER bg-white/70 text-sm focus:outline-none focus:border-brand-ACCENT focus:ring-2 focus:ring-brand-ACCENT/20 transition-shadow"
+          />
+          <input
+            name="whatsapp"
+            required
+            data-i18n-placeholder="contact.whatsapp"
+            class="w-full px-4 py-3 rounded-xl border border-brand-BORDER bg-white/70 text-sm focus:outline-none focus:border-brand-ACCENT focus:ring-2 focus:ring-brand-ACCENT/20 transition-shadow"
+          />
+          <textarea
+            name="need"
+            required
+            rows="3"
+            data-i18n-placeholder="contact.need"
+            class="w-full px-4 py-3 rounded-xl border border-brand-BORDER bg-white/70 text-sm focus:outline-none focus:border-brand-ACCENT focus:ring-2 focus:ring-brand-ACCENT/20 transition-shadow"
+          ></textarea>
+          <button
+            type="submit"
+            data-i18n="contact.submit"
+            class="cta-gradient w-full px-6 py-3 rounded-full bg-brand-PRIMARY hover:bg-brand-DARK text-white text-sm font-medium shadow-lg shadow-brand-PRIMARY/20 hover:shadow-brand-PRIMARY/30 hover:-translate-y-0.5 transition-all duration-300"
+          ></button>
+        </form>
+
+        <a
+          href="https://wa.me/8801752005057"
+          target="_blank"
+          class="whatsapp-btn flex items-center gap-4 p-6 rounded-2xl glass-card hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-brand-PRIMARY flex items-center justify-center text-white text-xl"
+          >
+            ↗
+          </div>
+          <div>
+            <p data-i18n="hero.cta_whatsapp" class="font-medium"></p>
+            <p class="text-xs text-brand-TEXT/50">WhatsApp</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 md:py-10">
+      <div class="max-w-6xl mx-auto px-5 md:px-8">
+        <div
+          class="site-footer glass-card rounded-2xl p-4 md:p-6 grid gap-4 md:grid-cols-[240px_minmax(0,1fr)] items-stretch"
+        >
+          <div
+            class="footer-logo-panel rounded-3xl overflow-hidden bg-gradient-to-br from-brand-LIGHT/80 to-brand-ACCENT/20 border border-white/60 p-3 flex items-center justify-center"
+          >
+            <img src="assets/logo.png" alt="logo" class="footer-logo-img" />
+          </div>
+
+          <div class="flex flex-col justify-between gap-3">
+            <div class="flex flex-col gap-2">
+              <div class="font-bold text-brand-DARK text-lg">
+                Akand Smart Solutions
+              </div>
+              <div
+                data-i18n="footer.tagline"
+                class="text-sm text-brand-TEXT/70 max-w-xl"
+              ></div>
+            </div>
+
+            <div
+              class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+            >
+              <nav class="flex flex-wrap gap-3">
+                <a href="#products" class="footer-link text-sm">Products</a>
+                <a href="#about" class="footer-link text-sm">About</a>
+                <a href="#contact" class="footer-link text-sm">Contact</a>
+              </nav>
+
+              <a
+                href="https://wa.me/8801752005057"
+                target="_blank"
+                class="footer-cta whatsapp-btn inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand-PRIMARY hover:bg-brand-DARK text-white text-sm shadow-md transition-colors"
+              >
+                <span class="text-lg">↗</span>
+                <span>Message on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-center text-xs text-brand-TEXT/50">
+          © 2026 Akand Smart Solutions — All rights reserved
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/effects.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

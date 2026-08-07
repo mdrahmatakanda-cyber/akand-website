@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="bn" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akand Smart Solutions — Product</title>
+
+    <script>
+      window.ASSET_BASE = "../";
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Tiro+Bangla&family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                PRIMARY: "#106B5F",
+                DARK: "#0A4A42",
+                ACCENT: "#12B8A0",
+                GOLD: "#D4A64A",
+                LIGHT: "#E2F2EE",
+                BG: "#F4E4C4",
+                SURFACE: "#FFFFFF",
+                TEXT: "#1A1D1A",
+                BORDER: "#EAE8E1",
+              },
+            },
+            fontFamily: { serif: ["Fraunces", "serif"] },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+      html,
+      body {
+        background-color: #fef3dd;
+        background-image:
+          linear-gradient(rgba(244, 228, 196, 0.85), rgba(244, 228, 196, 0.85)),
+          url("../assets/pattern.png");
+        background-repeat: repeat;
+        background-size: auto, 220px 220px;
+      }
+      body.font-bn {
+        font-family: "Tiro Bangla", serif;
+      }
+      body.font-ar {
+        font-family: "Amiri", serif;
+      }
+      body.font-ur {
+        font-family: "Noto Nastaliq Urdu", serif;
+        line-height: 2;
+      }
+
+      p,
+      li {
+        text-align: justify;
+        text-justify: inter-word;
+      }
+      .font-bn .display {
+        font-family: "Tiro Bangla", serif;
+      }
+      .font-en .display {
+        font-family: "Fraunces", serif;
+      }
+      .font-ar .display {
+        font-family: "Amiri", serif;
+      }
+      .font-ur .display {
+        font-family: "Noto Nastaliq Urdu", serif;
+      }
+      [dir="rtl"] .rtl-flip {
+        display: inline-block;
+        transform: scaleX(-1);
+      }
+
+      .bg-blobs {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(70px);
+        opacity: 0.35;
+      }
+      .blob-1 {
+        width: 480px;
+        height: 480px;
+        top: -120px;
+        right: -100px;
+        background: radial-gradient(circle, #12b8a0, transparent 70%);
+      }
+      .blob-2 {
+        width: 420px;
+        height: 420px;
+        bottom: -140px;
+        left: -160px;
+        background: radial-gradient(circle, #106b5f, transparent 70%);
+      }
+
+      .site-footer {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        padding: 0.75rem;
+      }
+      .footer-link {
+        color: #1a1d1a;
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition: background 0.18s ease, color 0.18s ease;
+      }
+      .footer-link:hover {
+        background: rgba(16, 107, 95, 0.06);
+        color: #106b5f;
+      }
+      .footer-cta {
+        box-shadow: 0 8px 24px rgba(16, 107, 95, 0.08);
+      }
+      .footer-logo-panel {
+        min-height: 180px;
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.88)
+        );
+      }
+      .footer-logo-img {
+        width: 100%;
+        max-width: 180px;
+        max-height: 160px;
+        object-fit: contain;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.78);
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 250, 0.78));
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border: 1px solid rgba(255, 255, 255, 0.86);
+        box-shadow: 0 24px 60px rgba(16, 107, 95, 0.12);
+        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 28px 72px rgba(16, 107, 95, 0.16);
+        transform: translateY(-2px);
+      }
+
+      .header-bar {
+        position: sticky;
+        transition: box-shadow 0.3s ease;
+      }
+      .header-bar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #106b5f 30%,
+          #d4a64a 50%,
+          #106b5f 70%,
+          transparent
+        );
+      }
+      .header-bar.scrolled {
+        box-shadow: 0 4px 24px rgba(16, 107, 95, 0.1);
+      }
+      .header-inner {
+        transition: height 0.3s ease;
+      }
+      .header-bar.scrolled .header-inner {
+        height: 56px;
+      }
+      @media (max-width: 640px) {
+        .header-bar.scrolled .header-inner {
+          height: 60px;
+        }
+      }
+
+      body {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      body.page-loaded {
+        opacity: 1;
+      }
+      body.page-leaving {
+        opacity: 0;
+      }
+
+      .glass-card,
+      .cta-gradient {
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .glass-card::before,
+      .cta-gradient::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: var(--my, 50%);
+        left: var(--mx, 50%);
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(
+          circle,
+          rgba(212, 166, 74, 0.35),
+          transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .glass-card:hover::before,
+      .cta-gradient:hover::before {
+        opacity: 1;
+      }
+
+      @keyframes whatsapp-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(16, 107, 95, 0.35);
+        }
+        50% {
+          transform: scale(1.035);
+          box-shadow: 0 0 0 12px rgba(16, 107, 95, 0);
+        }
+      }
+      .whatsapp-btn {
+        animation: whatsapp-pulse 2.4s ease-in-out infinite;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body {
+          opacity: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-bn text-brand-TEXT antialiased">
+    <div class="bg-blobs">
+      <div class="blob blob-1" id="blob-1"></div>
+      <div class="blob blob-2" id="blob-2"></div>
+    </div>
+
+    <header class="header-bar sticky top-0 z-50 bg-brand-BG/90 backdrop-blur">
+      <div
+        class="header-inner max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="../index.html" class="flex items-center gap-2.5">
+          <img
+            src="../assets/logo.png"
+            alt="Akand Smart Solutions logo"
+            class="w-8 h-8 md:w-10 md:h-10 object-cover rounded-lg"
+          />
+          <span class="font-semibold text-sm md:text-base"
+            >Akand Smart Solutions</span
+          >
+        </a>
+        <div
+          class="flex items-center gap-1 glass-card rounded-full p-1 text-xs"
+        >
+          <button data-lang-option="bn" class="px-2.5 py-1 rounded-full">
+            বাং
+          </button>
+          <button data-lang-option="ar" class="px-2.5 py-1 rounded-full">
+            عر
+          </button>
+          <button data-lang-option="ur" class="px-2.5 py-1 rounded-full">
+            اردو
+          </button>
+          <button data-lang-option="en" class="px-2.5 py-1 rounded-full">
+            EN
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="max-w-3xl mx-auto px-5 md:px-8 py-14 md:py-20">
+      <a
+        href="../index.html#products"
+        id="back-link"
+        class="text-sm text-brand-ACCENT inline-flex items-center gap-1 mb-8"
+      >
+        <span class="rtl-flip">←</span> <span data-i18n="products.title"></span>
+      </a>
+
+      <div id="product-content">
+        <div
+          id="p-shot-wrap"
+          class="w-full aspect-video rounded-2xl glass-card overflow-hidden flex items-center justify-center text-brand-PRIMARY/50 text-sm mb-8"
+        >
+          <img id="p-shot" class="w-full h-full object-cover hidden" alt="" />
+          <span id="p-shot-placeholder">স্ক্রিনশট শীঘ্রই</span>
+        </div>
+        <h1
+          id="p-name"
+          class="display text-2xl md:text-4xl font-semibold mb-3"
+        ></h1>
+        <p
+          id="p-tagline"
+          class="text-brand-TEXT/70 text-base md:text-lg mb-8"
+        ></p>
+        <ul id="p-usps" class="space-y-3 mb-10"></ul>
+        <a
+          href="../index.html#contact"
+          data-i18n="hero.cta_whatsapp"
+          class="whatsapp-btn cta-gradient inline-block px-6 py-3 rounded-full bg-brand-PRIMARY hover:bg-brand-DARK text-white text-sm font-medium shadow-lg shadow-brand-PRIMARY/20 hover:shadow-brand-PRIMARY/30 hover:-translate-y-0.5 transition-all duration-300"
+        ></a>
+      </div>
+    </section>
+
+    <footer class="py-8 md:py-10">
+      <div class="max-w-6xl mx-auto px-5 md:px-8">
+        <div
+          class="site-footer glass-card rounded-2xl p-4 md:p-6 grid gap-4 md:grid-cols-[240px_minmax(0,1fr)] items-stretch"
+        >
+          <div
+            class="footer-logo-panel rounded-3xl overflow-hidden bg-gradient-to-br from-brand-LIGHT/80 to-brand-ACCENT/20 border border-white/60 p-3 flex items-center justify-center"
+          >
+            <img src="../assets/logo.png" alt="logo" class="footer-logo-img" />
+          </div>
+
+          <div class="flex flex-col justify-between gap-3">
+            <div class="flex flex-col gap-2">
+              <div class="font-bold text-brand-DARK text-lg">
+                Akand Smart Solutions
+              </div>
+              <div
+                data-i18n="footer.tagline"
+                class="text-sm text-brand-TEXT/70 max-w-xl"
+              ></div>
+            </div>
+
+            <div
+              class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+            >
+              <nav class="flex flex-wrap gap-3">
+                <a href="../index.html#products" class="footer-link text-sm">Products</a>
+                <a href="../index.html#about" class="footer-link text-sm">About</a>
+                <a href="../index.html#contact" class="footer-link text-sm">Contact</a>
+              </nav>
+
+              <a
+                href="https://wa.me/8801752005057"
+                target="_blank"
+                class="footer-cta whatsapp-btn inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand-PRIMARY hover:bg-brand-DARK text-white text-sm shadow-md transition-colors"
+              >
+                <span class="text-lg">↗</span>
+                <span>Message on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-center md:text-left text-xs text-brand-TEXT/50">
+          © 2026 Akand Smart Solutions — <span data-i18n="footer.rights"></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/effects.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script>
+      // Map each product id to its screenshot file under assets/products/
+      // Add more entries here as screenshots become available.
+      const PRODUCT_SHOTS = {
+        "shop-management": "../assets/products/shop-management.jpg",
+        "madrasa-management": "../assets/products/madrasa-management.jpg",
+        "school-management": "../assets/products/school-management.jpg",
+        "mess-management": "../assets/products/mess-management.jpg",
+      };
+
+      function renderProductDetail(dict) {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        const product =
+          dict.products.items.find((p) => p.id === id) ||
+          dict.products.items[0];
+        document.getElementById("p-name").textContent = product.name;
+        document.getElementById("p-tagline").textContent = product.tagline;
+        document.title = `${product.name} — Akand Smart Solutions`;
+
+        const img = document.getElementById("p-shot");
+        const placeholder = document.getElementById("p-shot-placeholder");
+        const shotUrl = PRODUCT_SHOTS[product.id];
+        if (shotUrl) {
+          img.onload = () => {
+            img.classList.remove("hidden");
+            placeholder.classList.add("hidden");
+          };
+          img.onerror = () => {
+            img.classList.add("hidden");
+            placeholder.classList.remove("hidden");
+          };
+          img.src = shotUrl;
+          img.alt = product.name;
+        } else {
+          img.classList.add("hidden");
+          placeholder.classList.remove("hidden");
+        }
+
+        const list = document.getElementById("p-usps");
+        list.innerHTML = product.usps
+          .map(
+            (u) => `<li class="flex items-start gap-3 text-brand-TEXT/80">
+          <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-PRIMARY shrink-0"></span>${u}
+        </li>`,
+          )
+          .join("");
+      }
+      document.addEventListener("localechange", (e) =>
+        renderProductDetail(e.detail.dict),
+      );
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.gsap) {
+          gsap.to("#blob-1", {
+            x: -30,
+            y: 25,
+            duration: 9,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut",
+          });
+          gsap.to("#blob-2", {
+            x: 25,
+            y: -20,
+            duration: 10,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut",
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

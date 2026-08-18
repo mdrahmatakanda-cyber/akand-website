@@ -517,7 +517,7 @@
 
       .hero-fullscreen {
         min-height: 85vh; /* উচ্চতা একটু কমানো হলো যাতে বেশি ছড়ানো না লাগে */
-        padding-top: 6rem; 
+        padding-top: 6rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -529,7 +529,11 @@
       .brand-name {
         font-family: "Fraunces", serif;
         font-weight: 800;
-        font-size: clamp(1.75rem, 5vw, 3.2rem); /* ফন্ট সাইজ সামান্য কমানো হলো */
+        font-size: clamp(
+          1.75rem,
+          5vw,
+          3.2rem
+        ); /* ফন্ট সাইজ সামান্য কমানো হলো */
         letter-spacing: -0.01em;
         color: rgb(var(--c-primary));
         line-height: 1.1;
@@ -791,7 +795,11 @@
         সহজ। স্মার্ট। নিরাপদ।
       </h1>
       <div class="hero-info-card mx-auto mb-5 mt-2">
-        <p id="typewriter-text" class="hero-info-text" style="min-height: 60px; font-weight: 500; font-size: 1.05rem;"></p>
+        <p
+          id="typewriter-text"
+          class="hero-info-text"
+          style="min-height: 60px; font-weight: 500; font-size: 1.05rem"
+        ></p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 mt-2">
         <a
@@ -1203,7 +1211,7 @@
         clearTimeout(typeWriterTimeout);
         clearTimeout(cycleTimeout);
         typeWriterElement.innerHTML = "";
-        
+
         let typingSpeed = 70; // স্পিড কমানো হয়েছে (আগে 35 ছিল, এখন ধীরে উঠবে)
         let delayBetweenCycles = 20000; // ২০ সেকেন্ড পর পুনরায় শুরু
 

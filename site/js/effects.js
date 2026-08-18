@@ -61,7 +61,3 @@ function playSvgDraw(root = document, opts = {}) {
     paths.forEach((p) => (p.style.strokeDashoffset = 0));
   }
 }
-
-window.addEventListener("scroll", () => {
-  document.querySelector(".header-bar")?.classList.toggle("scrolled", window.scrollY > 20);
-});

@@ -65,6 +65,40 @@ function renderProducts(dict) {
   }
 }
 
+function renderIndustries(dict) {
+  const grid = document.getElementById("industries-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  // One simple line-icon per industry, in the same order as locales/*.json industries.items
+  const ICONS = [
+    '<path d="M4 21V9l8-5 8 5v12"/><path d="M9 21V13h6v8"/>', // School
+    '<path d="M4 21V9l8-5 8 5v12"/><path d="M9 21V13h6v8"/>', // College
+    '<path d="M4 21V10l8-6 8 6v11"/><path d="M12 4v3"/><circle cx="12" cy="2.2" r="0.8" fill="currentColor" stroke="none"/><path d="M9 21v-6h6v6"/>', // Madrasa
+    '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>', // Shop
+    '<path d="M8 2v6a2 2 0 0 0 2 2 2 2 0 0 0 2-2V2"/><path d="M12 2v20"/><path d="M18 2c-2 0-3 2.5-3 5.5S16 13 18 13v9"/>', // Mess
+    '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M2 20h20"/><path d="M6 10V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/>', // Hotel
+    '<path d="M12 2a4 4 0 0 1 4 4c0 1.5-1 2.5-1 2.5H9S8 7.5 8 6a4 4 0 0 1 4-4z"/><path d="M4 22V12h16v10"/><path d="M9 22v-6h6v6"/>', // Hospital
+    '<rect x="4" y="4" width="16" height="16" rx="8" transform="rotate(45 12 12)"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/>', // Pharmacy
+    '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>', // Office
+    '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/>', // NGO
+  ];
+
+  dict.industries.items.forEach((name, i) => {
+    const card = document.createElement("div");
+    card.className = "glass-card rounded-xl p-4 text-center";
+    card.innerHTML = `
+      <div class="w-10 h-10 rounded-full bg-brand-GOLD/15 text-brand-DARK flex items-center justify-center mx-auto mb-2">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          ${ICONS[i] || ICONS[0]}
+        </svg>
+      </div>
+      <p class="text-xs text-brand-TEXT/80">${name}</p>
+    `;
+    grid.appendChild(card);
+  });
+}
+
 function renderWhyUs(dict) {
   const grid = document.getElementById("why-grid");
   if (!grid) return;

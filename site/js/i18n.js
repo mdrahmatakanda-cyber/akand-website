@@ -96,6 +96,8 @@ async function setLocale(locale, { animateHero = false } = {}) {
   if (typeof renderProducts === "function") renderProducts(dict);
   // Why-us grid
   if (typeof renderWhyUs === "function") renderWhyUs(dict);
+  // Industries grid
+  if (typeof renderIndustries === "function") renderIndustries(dict);
 
   document.dispatchEvent(new CustomEvent("localechange", { detail: { locale, dict } }));
 }

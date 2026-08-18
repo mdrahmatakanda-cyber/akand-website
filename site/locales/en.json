@@ -15,7 +15,7 @@
       "Digital Solutions",
       "Simple. Smart. Secure."
     ],
-    "sub_1": "Akand Smart Solutions provides modern Website, Web Application, Mobile App, and Custom Software development services for your business, organization, or startup. We turn your ideas into effective, real digital products through fast, secure, and scalable solutions.",
+    "sub_1": "Stop worrying about your daily accounting or management hassles. We listen to your actual needs and build websites, apps, and software exactly the way you want them. Simple, smart, and completely secure!",
     "sub_2": "We build custom software for schools, colleges, madrasas, shops, messes, hotels, hospitals, pharmacies, offices, NGOs, and any organization. We also offer website and software upgrades, redesign, performance optimization, and long-term technical support.",
     "cta_products": "View Products",
     "cta_whatsapp": "Message on WhatsApp"
@@ -67,6 +67,38 @@
     ],
     "cta": "See details",
     "trial": "15-30 days full premium access, free"
+  },
+  "services": {
+    "title": "Our Services",
+    "items": [
+      {
+        "title": "Website & Web App Development",
+        "desc": "Modern, fast, and responsive websites and web applications for your business."
+      },
+      {
+        "title": "Mobile App Development",
+        "desc": "Simple, user-friendly mobile apps for Android and iOS."
+      },
+      {
+        "title": "Custom Software Solutions",
+        "desc": "Custom software built around your organization's specific needs."
+      }
+    ]
+  },
+  "industries": {
+    "title": "Industries We Serve",
+    "items": [
+      "School",
+      "College",
+      "Madrasa",
+      "Shop",
+      "Mess",
+      "Hotel",
+      "Hospital",
+      "Pharmacy",
+      "Office",
+      "NGO"
+    ]
   },
   "about": {
     "title": "Md. Rahmatullah Akanda",

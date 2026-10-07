@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  "name": "akand",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-02",
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/kitab-ai", "/kitab-ai/*"]
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "akand-kitab-ai",
+      "database_id": "181205e3-6514-41a3-971b-4439277b8703"
+    }
+  ]
+}
